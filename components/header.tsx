@@ -83,7 +83,7 @@ export default function Header() {
           </Link>
         </div>
         <Button
-          variant={scrolled || isMenuOpen ? "ghost" : "outline"}
+          // variant={scrolled || isMenuOpen ? "ghost" : "outline"}
           size="icon"
           className={`md:hidden transition-all duration-300 ${!scrolled && !isMenuOpen ? "text-white border-white hover:bg-white/10" : ""}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
