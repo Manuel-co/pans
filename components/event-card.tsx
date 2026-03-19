@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Calendar, ChevronRight } from "lucide-react"
+import { Clock, MapPin, ArrowRight } from "lucide-react"
 
 interface EventCardProps {
   event: {
@@ -15,29 +15,47 @@ interface EventCardProps {
 
 export default function EventCard({ event }: EventCardProps) {
   return (
-    <div className="flex flex-col h-full rounded-lg border bg-white shadow-sm hover-lift transition-all duration-300 hover:shadow-md">
+    <div className="group flex flex-col h-full rounded-2xl border border-gray-100 bg-white shadow-sm hover-lift overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-pansblue-900/8 hover:border-pansblue-100">
+
+      {/* Accent bar */}
+      <div className="h-1 w-full bg-gradient-to-r from-pansblue-600 via-pansblue-400 to-blue-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
       <div className="p-6 flex flex-col flex-1">
-        <div className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-pansblue-900 border-blue-200 bg-blue-100 mb-2">
+        {/* Date badge */}
+        <div className="inline-flex items-center self-start rounded-lg bg-pansblue-50 border border-pansblue-100 px-3 py-1 text-xs font-bold text-pansblue-700 mb-4 tracking-wide">
           {event.date}
         </div>
-        <h3 className="text-2xl font-bold tracking-tight text-pansblue-900">{event.title}</h3>
-        <p className="mt-2 text-gray-600 flex-1">{event.description}</p>
-        <div className="mt-4 flex items-center text-sm text-gray-500">
-          <Calendar className="mr-1 h-4 w-4" />
-          <span>{event.time}</span>
-          <span className="mx-2">•</span>
-          <span>{event.location}</span>
+
+        <h3 className="font-display text-xl font-bold text-pansblue-950 mb-3 leading-tight group-hover:text-pansblue-700 transition-colors duration-200">
+          {event.title}
+        </h3>
+
+        <p className="text-sm text-gray-500 leading-relaxed flex-1 mb-5">
+          {event.description}
+        </p>
+
+        {/* Meta */}
+        <div className="flex flex-col gap-1.5 mb-6">
+          <div className="flex items-center gap-2 text-xs text-gray-400 font-medium">
+            <Clock className="h-3.5 w-3.5 text-pansblue-400 flex-shrink-0" />
+            {event.time}
+          </div>
+          <div className="flex items-center gap-2 text-xs text-gray-400 font-medium">
+            <MapPin className="h-3.5 w-3.5 text-pansblue-400 flex-shrink-0" />
+            {event.location}
+          </div>
         </div>
-      </div>
-      <div className="p-6 pt-0">
+
         <Link href={`/events/${event.id}`}>
-          <Button variant="outline" className="w-full group">
+          <Button
+            variant="outline"
+            className="w-full rounded-xl border-pansblue-200 text-pansblue-900 hover:bg-pansblue-50 hover:border-pansblue-400 font-semibold text-sm group/btn transition-all duration-200"
+          >
             Learn More
-            <ChevronRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="h-3.5 w-3.5 ml-1 group-hover/btn:translate-x-1 transition-transform duration-200" />
           </Button>
         </Link>
       </div>
     </div>
   )
 }
-

@@ -1,119 +1,163 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Instagram, Twitter, Mail, Phone } from "lucide-react"
+import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight } from "lucide-react"
+
+const QUICK_LINKS = [
+  { label: "Home",      href: "/" },
+  { label: "About Us",  href: "/about" },
+  { label: "Events",    href: "/events" },
+  { label: "Officials", href: "/officials" },
+]
+
+const RESOURCE_LINKS = [
+  { label: "Gallery", href: "/gallery" },
+  { label: "Blog",    href: "/blog" },
+  { label: "FAQ",     href: "/faq" },
+  { label: "Join PANS", href: "/join" },
+]
 
 export default function Footer() {
   return (
-    <footer className="bg-pansblue-900 text-white">
-      <div className="container px-4 md:px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="h-10 w-10 relative bg-white rounded-full flex items-center justify-center">
+    <footer className="bg-pansblue-950 text-white relative overflow-hidden">
+
+      {/* Subtle top gradient */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pansblue-600/60 to-transparent" />
+
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-pansblue-900/40 blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+
+      <div className="container px-4 md:px-6 max-w-7xl mx-auto relative z-10">
+
+        {/* Main grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pt-16 pb-12 border-b border-white/8">
+
+          {/* Brand */}
+          <div className="lg:col-span-1 space-y-5">
+            <Link href="/" className="flex items-center gap-3 group w-fit">
+              <div className="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-white/20 transition-colors">
                 <Image
                   src="/images/pans-logo.png"
-                  alt="PANS UNIPORT Logo"
+                  alt="PANS UNIPORT"
                   width={32}
                   height={32}
                   className="object-contain"
                 />
               </div>
-              <span className="text-xl font-bold">PANS UNIPORT</span>
-            </div>
-            <p className="text-blue-100">
-              Pharmaceutical Association of Nigerian Students, University of Port Harcourt Chapter
+              <div>
+                <div className="text-sm font-bold font-display tracking-wide">PANS UNIPORT</div>
+                <div className="text-[10px] text-pansblue-400 font-medium">Est. 1985</div>
+              </div>
+            </Link>
+
+            <p className="text-pansblue-300 text-sm leading-relaxed">
+              Official student body of the Faculty of Pharmaceutical Sciences,
+              University of Port Harcourt.
             </p>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-white hover:text-blue-200">
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="https://www.instagram.com/pans.uniport/" className="text-white hover:text-blue-200">
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="https://x.com/pansuniport" className="text-white hover:text-blue-200">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
+
+            {/* Social */}
+            <div className="flex items-center gap-2">
+              {[
+                { href: "#", icon: Facebook, label: "Facebook" },
+                { href: "https://www.instagram.com/pans.uniport/", icon: Instagram, label: "Instagram" },
+                { href: "https://x.com/pansuniport", icon: Twitter, label: "Twitter" },
+              ].map(({ href, icon: Icon, label }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="w-9 h-9 rounded-lg bg-white/8 border border-white/8 flex items-center justify-center text-pansblue-300 hover:text-white hover:bg-pansblue-700 hover:border-pansblue-600 transition-all duration-200"
+                >
+                  <Icon className="h-4 w-4" />
+                </Link>
+              ))}
             </div>
           </div>
+
+          {/* Quick links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-blue-100 hover:text-white">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-blue-100 hover:text-white">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/events" className="text-blue-100 hover:text-white">
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link href="/officials" className="text-blue-100 hover:text-white">
-                  Officials
-                </Link>
-              </li>
+            <h4 className="text-xs font-bold tracking-widest uppercase text-pansblue-400 mb-5">Quick Links</h4>
+            <ul className="space-y-2.5">
+              {QUICK_LINKS.map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="text-sm text-pansblue-300 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
+                  >
+                    <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
+          {/* Resources */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/gallery" className="text-blue-100 hover:text-white">
-                  Gallery
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-blue-100 hover:text-white">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-blue-100 hover:text-white">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/join" className="text-blue-100 hover:text-white">
-                  Join PANS
-                </Link>
-              </li>
+            <h4 className="text-xs font-bold tracking-widest uppercase text-pansblue-400 mb-5">Resources</h4>
+            <ul className="space-y-2.5">
+              {RESOURCE_LINKS.map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="text-sm text-pansblue-300 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
+                  >
+                    <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
+          {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                <span className="text-blue-100">info@pansuniport.org</span>
+            <h4 className="text-xs font-bold tracking-widest uppercase text-pansblue-400 mb-5">Contact</h4>
+            <ul className="space-y-4">
+              <li>
+                <a href="mailto:info@pansuniport.org" className="flex items-start gap-3 group">
+                  <div className="mt-0.5 w-7 h-7 rounded-lg bg-white/8 flex items-center justify-center flex-shrink-0">
+                    <Mail className="h-3.5 w-3.5 text-pansblue-400" />
+                  </div>
+                  <span className="text-sm text-pansblue-300 group-hover:text-white transition-colors duration-200 leading-tight">
+                    info@pansuniport.org
+                  </span>
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4" />
-                <span className="text-blue-100">+234 800 123 4567</span>
+              <li>
+                <a href="tel:+2348001234567" className="flex items-start gap-3 group">
+                  <div className="mt-0.5 w-7 h-7 rounded-lg bg-white/8 flex items-center justify-center flex-shrink-0">
+                    <Phone className="h-3.5 w-3.5 text-pansblue-400" />
+                  </div>
+                  <span className="text-sm text-pansblue-300 group-hover:text-white transition-colors duration-200 leading-tight">
+                    +234 800 123 4567
+                  </span>
+                </a>
               </li>
-              <li className="text-blue-100">
-                Faculty of Pharmaceutical Sciences,
-                <br />
-                University of Port Harcourt,
-                <br />
-                Rivers State, Nigeria
+              <li>
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 w-7 h-7 rounded-lg bg-white/8 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="h-3.5 w-3.5 text-pansblue-400" />
+                  </div>
+                  <address className="text-sm text-pansblue-300 not-italic leading-relaxed">
+                    Faculty of Pharmaceutical Sciences,<br />
+                    University of Port Harcourt,<br />
+                    Rivers State, Nigeria
+                  </address>
+                </div>
               </li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-blue-800 mt-8 pt-8 text-center text-blue-100">
-          <p>&copy; {new Date().getFullYear()} PANS UNIPORT. All rights reserved.</p>
+
+        {/* Bottom bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-6 text-pansblue-500 text-xs">
+          <p>© {new Date().getFullYear()} PANS UNIPORT. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-pansblue-300 transition-colors">Privacy Policy</Link>
+            <Link href="/terms"   className="hover:text-pansblue-300 transition-colors">Terms of Use</Link>
+          </div>
         </div>
       </div>
     </footer>
   )
 }
-
